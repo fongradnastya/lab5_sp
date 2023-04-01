@@ -124,10 +124,16 @@ void deleteMaxColumn(int** matrix, int** newMatrix, int size)
     }
     for(int i = 0; i < size; i++)
     {
-        for(int j = maxY + 1; j < size; j++){
-            matrix[i][j-1] = matrix[i][j];
+        for(int j = 0; j < (size - 1); j++)
+        {
+            if(j >= maxY)
+            {
+                newMatrix[i][j] = matrix[i][j + 1];
+                
+            }
+            else{
+                newMatrix[i][j] = matrix[i][j];
+            }
         }
-        matrix[i] = (int*)realloc(matrix, size - 1);
     }
-    PrintMatrix(newMatrix, size, size - 1);
 }

@@ -23,11 +23,16 @@ int main(){
         int** newMatrix = (int**) malloc(size * sizeof(int*));
         for(int i = 0; i < size; i++)
         {
-            matrix[i] = (int*)malloc((size - 1) * sizeof(int));
+            newMatrix[i] = (int*) malloc((size - 1) * sizeof(int));
         }
         deleteMaxColumn(matrix, newMatrix, size);
+        PrintMatrix(newMatrix, size, size - 1);
+        for(int i = 0; i < size; i++)
+        {
+            free(newMatrix[i]);
+        }
+        free(newMatrix);
     }
-    
     for(int i = 0; i < size; i++)
     {
         free(matrix[i]);
