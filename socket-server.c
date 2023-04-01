@@ -10,6 +10,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include"matrix.c"
 
 /*! \brief Read text from socket and print it.
  *
@@ -27,7 +28,6 @@ int server(int serverSocket)
   {
     /* Recieve messages from any peers */
     int length = 0;
-    char* text = NULL;
 
     /* First, read the length of the text message from the socket.  If
        read returns zero, the client closed the connection.  */
@@ -35,6 +35,7 @@ int server(int serverSocket)
                               (struct sockaddr *) &clientName,
                               &clientNameLength
                              );
+    printf("%d\n", length);
     if (-1 == recvResult)
     {
       perror("recvfrom");
@@ -44,26 +45,29 @@ int server(int serverSocket)
       return 0;
     }
     /* Allocate a buffer to hold the text.  */
-    text = (char*) malloc(length);
-    bzero(text, length);
-
-    /* Read the text itself, and print it.  */
-    recvResult = recvfrom(serverSocket, text, length, 0,
+    int** matrix = (int**) malloc(length * sizeof(int*));
+    for(int i = 0; i < length; i++)
+    {
+        matrix[i] = (int*)malloc(length * sizeof(int));
+    }
+    PrintMatrix(matrix, length, length);
+    
+    for(int i = 0; i < length; i++)
+    {
+        printf("%d\n", i);
+        recvResult = recvfrom(serverSocket, matrix[i], length * sizeof(int), 0,
                           (struct sockaddr *)&clientName,
                           &clientNameLength
                          );
-    printf("%s\n", text);
-
-    /* If the client sent the message "adios amigo", we're all done.  */
-    if (0 == strcmp(text, "adios amigo"))
-    {
-      /* Free the buffer.  */
-      free(text);
-      return !0;
+        if(recvResult < 0)
+        {
+            perror("recovfrom");
+            return 0;
+        }
     }
-
-    /* Free the buffer.  */
-    free(text);
+    printf("Matrix successfully read\n");
+    PrintMatrix(matrix, length, length);
+    free(matrix);
   }
   return 0;
 }

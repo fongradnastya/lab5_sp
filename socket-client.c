@@ -12,6 +12,29 @@
 #include <unistd.h>
 #include"matrix.c"
 
+void sendMatrix(int** matrix, int size, int socketFileDescriptor, struct sockaddr_in name)
+{
+    int resSend = 0;
+    resSend = sendto(socketFileDescriptor, &size, sizeof (size), 0,
+                     (struct sockaddr *) &name, sizeof (name)
+                    );
+    if (0 > resSend)
+    {
+        perror("sendto");
+    }
+    for(int i = 0; size < size; i++)
+    {
+        resSend = sendto(socketFileDescriptor, matrix[i], size * sizeof(int), 0,
+                    (struct sockaddr *) &name, sizeof (name)
+                );
+        if (0 > resSend)
+        {
+            perror("sendto");
+        }
+    }
+    printf("Matrix succesfully sended\n");
+}
+
 /*! \brief Main function
  *  \param argc  Number of command line arguments
  *  \param argv  An array of command line argruments.
@@ -64,29 +87,9 @@ int main(int argc, const char* argv[])
     int res = InputMatrix(matrix, size);
     if(res == 1){
         printf("Matrix succesfully created\n");
-        int resSend = 0;
-        int length = size * sizeof(int) * size;
-        resSend = sendto(socketFileDescriptor, &length, sizeof (length), 0,
-                     (struct sockaddr *) &name, sizeof (name)
-                    );
-        if (0 > resSend)
-        {
-        perror("sendto");
-        }
-        /* Write the string.  */
-        resSend = sendto(socketFileDescriptor, matrix, length, 0,
-                     (struct sockaddr *) &name, sizeof (name)
-                    );
-        if (0 > resSend)
-        {
-            perror("sendto");
-        }
-        else
-        {
-            printf("Matrix succesfully sended\n");
-        }
-        getchar();
+        sendMatrix(matrix, size, socketFileDescriptor, name);
     }
+    getchar();
   } while (!0);
 
   /* Disconnect and remove the socket. */
