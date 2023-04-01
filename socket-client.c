@@ -9,8 +9,8 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <arpa/inet.h>
 #include <unistd.h>
+#include"matrix.c"
 
 /*! \brief Main function
  *  \param argc  Number of command line arguments
@@ -53,38 +53,40 @@ int main(int argc, const char* argv[])
     perror("socket");
 
   /* Write the text to the socket.  */
-  char message[256];
   do
   {
-    message[0] = '\0';
-    printf("Please, enter a string to send to server.\n");
-    printf("To quit enter \"adios amigo\"\n");
-    fgets(message, 256, stdin);
-    message[strlen(message) - 1] = 0;
-
-    int resSend = 0;
-    /* Write the number of bytes in the string, including
-       NULL-termination.  */
-    int length = strlen(message) + 1;
-    resSend = sendto(socketFileDescriptor, &length, sizeof (length), 0,
+    int size = InputSize();
+    int** matrix = (int**) malloc(size * sizeof(int*));
+    for(int i = 0; i < size; i++)
+    {
+        matrix[i] = (int*)malloc(size * sizeof(int));
+    }
+    int res = InputMatrix(matrix, size);
+    if(res == 1){
+        printf("Matrix succesfully created\n");
+        int resSend = 0;
+        int length = size * sizeof(int) * size;
+        resSend = sendto(socketFileDescriptor, &length, sizeof (length), 0,
                      (struct sockaddr *) &name, sizeof (name)
                     );
-    if (0 > resSend)
-    {
-      perror("sendto");
-    }
-
-    /* Write the string.  */
-    resSend = sendto(socketFileDescriptor, message, length, 0,
+        if (0 > resSend)
+        {
+        perror("sendto");
+        }
+        /* Write the string.  */
+        resSend = sendto(socketFileDescriptor, matrix, length, 0,
                      (struct sockaddr *) &name, sizeof (name)
                     );
-    if (0 > resSend)
-    {
-      perror("sendto");
+        if (0 > resSend)
+        {
+            perror("sendto");
+        }
+        else
+        {
+            printf("Matrix succesfully sended\n");
+        }
+        getchar();
     }
-
-    if (0 == strcmp(message, "adios amigo"))
-      break;
   } while (!0);
 
   /* Disconnect and remove the socket. */
