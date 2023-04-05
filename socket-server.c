@@ -12,25 +12,7 @@
 #include <unistd.h>
 #include"matrix.c"
 
-void matrixProcessing(matrix, size)
-{
-  int minRow = replaceMinString(matrix, size);
-  PrintMatrix(matrix, size, size);
-  printf("Replased row id: %d\n", minRow);
-  int** newMatrix = (int**) malloc(size * sizeof(int*));
-  for(int i = 0; i < size; i++)
-  {
-    newMatrix[i] = (int*) malloc((size - 1) * sizeof(int));
-  }
-  int maxColumn = deleteMaxColumn(matrix, newMatrix, size);
-  PrintMatrix(newMatrix, size, size - 1);
-  printf("Deleted column id: %d\n", maxColumn);
-  for(int i = 0; i < size; i++)
-  {
-    free(newMatrix[i]);
-  }
-  free(newMatrix);
-}
+#define PORT 5005
 
 /*! \brief Read text from socket and print it.
  *
@@ -56,7 +38,7 @@ int server(int serverSocket)
                               &clientNameLength
                              );
     printf("%d\n", length);
-    if (-1 == recvResult)
+    if (recvResult == -1)
     {
       perror("recvfrom");
     }
@@ -69,9 +51,7 @@ int server(int serverSocket)
     for(int i = 0; i < length; i++)
     {
         matrix[i] = (int*)malloc(length * sizeof(int));
-    }
-    PrintMatrix(matrix, length, length);
-    
+    }   
     for(int i = 0; i < length; i++)
     {
         printf("%d\n", i);
@@ -85,31 +65,17 @@ int server(int serverSocket)
             return 0;
         }
     }
-    printf("Matrix successfully read\n");
+    printf("The matrix successfully read\n");
     PrintMatrix(matrix, length, length);
+    matrixProcessing(matrix, length);
     free(matrix);
   }
   return 0;
 }
 
-/*! \brief Main function
- *  \param argc  Number of command line arguments
- *  \param argv  An array of command line argruments.
- *               argv[0] - the program name,
- *               argv[1] - the port number.
- *  \return Integer 0 upon exit success,
- *          or EXIT_FAILURE otherwise.
- */
 int main(int argc, char* const argv[])
 {
-  if (argc < 2)
-  {
-    fprintf(stderr, "Too few parameters.\n");
-    return EXIT_FAILURE;
-  }
-
   int socketFileDescriptor = -1;
-  int portNumber = atoi(argv[1]);
   
   struct sockaddr_in name;
   int clientSentQuitMessage;
@@ -126,7 +92,7 @@ int main(int argc, char* const argv[])
 
   /* Indicate this is a server.  */
   name.sin_family = AF_INET;
-  name.sin_port = htons(portNumber);
+  name.sin_port = htons(PORT);
   name.sin_addr.s_addr = INADDR_ANY;
 
   if (-1 == bind(socketFileDescriptor, (const struct sockaddr *)&name, sizeof (name)))
@@ -135,7 +101,7 @@ int main(int argc, char* const argv[])
     close(socketFileDescriptor);
     exit(1);
   }
-
+  printf("Started listening client's requests\n");
   /* Handle the connection.  */
   do
   {

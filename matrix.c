@@ -88,6 +88,7 @@ int InputSize()
 
 int replaceMinString(int** matrix, int size)
 {
+    PrintMatrix(matrix, size, size);
     int minX = 0;
     int minY = 0;
     for(int i = 0; i < size; i++)
@@ -138,4 +139,25 @@ int deleteMaxColumn(int** matrix, int** newMatrix, int size)
         }
     }
     return maxY;
+}
+
+void matrixProcessing(int** matrix, int size)
+{
+  int minRow = replaceMinString(matrix, size);
+  printf("Replased row id: %d\n", minRow);
+  PrintMatrix(matrix, size, size);
+  
+  int** newMatrix = (int**) malloc(size * sizeof(int*));
+  for(int i = 0; i < size; i++)
+  {
+    newMatrix[i] = (int*) malloc((size - 1) * sizeof(int));
+  }
+  int maxColumn = deleteMaxColumn(matrix, newMatrix, size);
+  printf("Deleted column id: %d\n", maxColumn);
+  PrintMatrix(newMatrix, size, size - 1);
+  for(int i = 0; i < size; i++)
+  {
+    free(newMatrix[i]);
+  }
+  free(newMatrix);
 }

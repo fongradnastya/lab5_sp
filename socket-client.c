@@ -12,6 +12,9 @@
 #include <unistd.h>
 #include"matrix.c"
 
+#define ADDRES "127.0.0.1"
+#define PORT 5005
+
 void sendMatrix(int** matrix, int size, int socketFileDescriptor, struct sockaddr_in name)
 {
     int resSend = 0;
@@ -32,43 +35,25 @@ void sendMatrix(int** matrix, int size, int socketFileDescriptor, struct sockadd
             perror("sendto");
         }
     }
-    printf("Matrix succesfully sended\n");
 }
 
-/*! \brief Main function
- *  \param argc  Number of command line arguments
- *  \param argv  An array of command line argruments.
- *               argv[0] - the program name,
- *               argv[1] - a socket IP-address.
- *               argv[2] - a socket port number.
- *  \return Integer 0 upon exit success,
- *          or EXIT_FAILURE otherwise.
- */
 int main(int argc, const char* argv[])
 {
-  if (argc < 3)
-  {
-    fprintf(stderr, "Socketname and port number expected.\n");
-    return EXIT_FAILURE;
-  }
-
   int socketFileDescriptor;
-  int portNumber = atoi(argv[2]);
   
   struct sockaddr_in name;
   memset((char *) &name, 0, sizeof (name));
 
   /* Store the server's name in the socket address.  */
   name.sin_family = AF_INET;
-  name.sin_addr.s_addr = inet_addr(argv[1]);
+  name.sin_addr.s_addr = inet_addr(ADDRES);
 
   if (INADDR_NONE == name.sin_addr.s_addr)
   {
-    printf("Wrong ");
     perror("inet_addr");
     exit(1);
   }
-  name.sin_port = htons(portNumber);
+  name.sin_port = htons(PORT);
 
   /* Create the socket.  */
   socketFileDescriptor = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
@@ -88,8 +73,14 @@ int main(int argc, const char* argv[])
     if(res == 1){
         printf("Matrix succesfully created\n");
         sendMatrix(matrix, size, socketFileDescriptor, name);
+        printf("The matrix was sended to the server\n");
     }
     getchar();
+    for(int i = 0; i < size; i++)
+    {
+      free(matrix[i]);
+    }
+    free(matrix);
   } while (!0);
 
   /* Disconnect and remove the socket. */
