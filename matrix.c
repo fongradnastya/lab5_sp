@@ -88,7 +88,6 @@ int InputSize()
 
 int replaceMinString(int** matrix, int size)
 {
-    PrintMatrix(matrix, size, size);
     int minX = 0;
     int minY = 0;
     for(int i = 0; i < size; i++)
@@ -143,21 +142,56 @@ int deleteMaxColumn(int** matrix, int** newMatrix, int size)
 
 void matrixProcessing(int** matrix, int size)
 {
-  int minRow = replaceMinString(matrix, size);
-  printf("Replased row id: %d\n", minRow);
-  PrintMatrix(matrix, size, size);
+    printf("----------------------------------\n");
+    PrintMatrix(matrix, size, size);
+    int minRow = replaceMinString(matrix, size);
+    printf("Replased row id: %d\n", minRow);
+    PrintMatrix(matrix, size, size);
   
-  int** newMatrix = (int**) malloc(size * sizeof(int*));
-  for(int i = 0; i < size; i++)
-  {
-    newMatrix[i] = (int*) malloc((size - 1) * sizeof(int));
-  }
-  int maxColumn = deleteMaxColumn(matrix, newMatrix, size);
-  printf("Deleted column id: %d\n", maxColumn);
-  PrintMatrix(newMatrix, size, size - 1);
-  for(int i = 0; i < size; i++)
-  {
-    free(newMatrix[i]);
-  }
-  free(newMatrix);
+    int** newMatrix = (int**) malloc(size * sizeof(int*));
+    for(int i = 0; i < size; i++)
+    {
+       newMatrix[i] = (int*) malloc((size - 1) * sizeof(int));
+    }
+    int maxColumn = deleteMaxColumn(matrix, newMatrix, size);
+    printf("Deleted column id: %d\n", maxColumn);
+    PrintMatrix(newMatrix, size, size - 1);
+    for(int i = 0; i < size; i++)
+    {
+      free(newMatrix[i]);
+    }
+    free(newMatrix);
+    printf("----------------------------------\n");
+}
+
+int** getMatrixFromString(char* str) 
+{
+    char* token = strtok(str, " ");
+    int length = atoi(token);
+    // Initialize a matrix
+    int** matrix = (int**) malloc(length * sizeof(int*));
+    for(int i = 0; i < length; i++)
+    {
+        matrix[i] = (int*)malloc(length * sizeof(int));
+    }   
+    // Loop through the string and split it by space
+    for(int r = 0; r < length; r++)
+    {
+        for(int c = 0; c < length; c++)
+        {
+            token = strtok(NULL, " ");
+            if (token != NULL)
+            {
+                int num = atoi(token);
+                matrix[r][c] = num;
+            }
+        }
+    }
+    matrixProcessing(matrix, length);
+    for(int i = 0; i < length; i++)
+    {
+      free(matrix[i]);
+    }
+    free(matrix);
+    return matrix;
 }

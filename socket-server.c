@@ -30,10 +30,11 @@ int server(int serverSocket)
   while (!0)
   {
     char buffer[BUFFSIZE];
-    int recvResult = recvfrom(serverSocket, &buffer, strlen(buffer), 0,
+    int recvResult = recvfrom(serverSocket, buffer, BUFFSIZE, 0,
                               (struct sockaddr *) &clientName,
                               &clientNameLength
                              );
+    buffer[recvResult] = '\0';
     printf("%s\n", buffer);
     if (recvResult == -1)
     {
@@ -43,21 +44,8 @@ int server(int serverSocket)
     {
       return 0;
     }
-    int length = 3;
-    int** matrix = (int**) malloc(length * sizeof(int*));
-    for(int i = 0; i < length; i++)
-    {
-        matrix[i] = (int*)malloc(length * sizeof(int));
-    }   
-    
+    getMatrixFromString(buffer);
     printf("The matrix successfully read\n");
-    PrintMatrix(matrix, length, length);
-    matrixProcessing(matrix, length);
-    for(int i = 0; i < length; i++)
-    {
-      free(matrix[i]);
-    }
-    free(matrix);
   }
   return 0;
 }

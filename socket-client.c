@@ -19,12 +19,12 @@
 void sendMatrix(int** matrix, int size, int socketFileDescriptor, struct sockaddr_in name)
 {
   char buffer[BUFFSIZE];
-  sprintf(buffer, "%d ", size);
+  sprintf(buffer, "%d", size);
   for(int i = 0; i < size; i++)
   {
     for(int j = 0; j < size; j++)
     {
-      sprintf(buffer, "%d ", matrix[i][j]);
+      sprintf(buffer, "%s %d", buffer, matrix[i][j]);
     }
   }
   printf("%s\n", buffer);
