@@ -1,4 +1,4 @@
-/*! \file    socket-server-udp.c
+/*! \file    socket-server.c
  *  \brief   Sockets demonstration.
  *
  *  \details Interprocess communication via internet UDP sockets.
@@ -9,7 +9,9 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <unistd.h>
+
 #include"matrix.c"
 
 #define PORT 5005
@@ -34,8 +36,10 @@ int server(int serverSocket)
                               (struct sockaddr *) &clientName,
                               &clientNameLength
                              );
+    printf("Received a request from %s:%d\n", inet_ntoa(clientName.sin_addr), ntohs(clientName.sin_port));
     buffer[recvResult] = '\0';
-    printf("%s\n", buffer);
+    printf("Request content: %s\n", buffer);
+    printf("Response:\n");
     if (recvResult == -1)
     {
       perror("recvfrom");
@@ -45,7 +49,6 @@ int server(int serverSocket)
       return 0;
     }
     getMatrixFromString(buffer);
-    printf("The matrix successfully read\n");
   }
   return 0;
 }

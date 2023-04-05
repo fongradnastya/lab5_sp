@@ -1,4 +1,4 @@
-/*! \file    socket-client-udp.c
+/*! \file    socket-client.c
  *  \brief   Sockets demonstration.
  *
  *  \details Interprocess communication via UDP sockets.
@@ -10,6 +10,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <arpa/inet.h>
+
 #include"matrix.c"
 
 #define ADDRES "127.0.0.1"
@@ -27,7 +29,6 @@ void sendMatrix(int** matrix, int size, int socketFileDescriptor, struct sockadd
       sprintf(buffer, "%s %d", buffer, matrix[i][j]);
     }
   }
-  printf("%s\n", buffer);
   int resSend = 0;
   resSend = sendto(socketFileDescriptor, &buffer, 
     strlen(buffer), 0, (struct sockaddr *) &name, sizeof (name));
@@ -61,9 +62,9 @@ int main(int argc, const char* argv[])
     perror("socket");
 
   /* Write the text to the socket.  */
+  printf("---------------------------------------\n");
   do
   {
-    
     int size = InputSize();
     int** matrix = (int**) malloc(size * sizeof(int*));
     for(int i = 0; i < size; i++)
@@ -82,6 +83,7 @@ int main(int argc, const char* argv[])
       free(matrix[i]);
     }
     free(matrix);
+    printf("---------------------------------------\n");
   } while (!0);
 
   /* Disconnect and remove the socket. */
