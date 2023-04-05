@@ -12,6 +12,26 @@
 #include <unistd.h>
 #include"matrix.c"
 
+void matrixProcessing(matrix, size)
+{
+  int minRow = replaceMinString(matrix, size);
+  PrintMatrix(matrix, size, size);
+  printf("Replased row id: %d\n", minRow);
+  int** newMatrix = (int**) malloc(size * sizeof(int*));
+  for(int i = 0; i < size; i++)
+  {
+    newMatrix[i] = (int*) malloc((size - 1) * sizeof(int));
+  }
+  int maxColumn = deleteMaxColumn(matrix, newMatrix, size);
+  PrintMatrix(newMatrix, size, size - 1);
+  printf("Deleted column id: %d\n", maxColumn);
+  for(int i = 0; i < size; i++)
+  {
+    free(newMatrix[i]);
+  }
+  free(newMatrix);
+}
+
 /*! \brief Read text from socket and print it.
  *
  *  \details Read text from the socket and print it out.

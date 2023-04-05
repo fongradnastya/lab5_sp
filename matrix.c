@@ -86,7 +86,7 @@ int InputSize()
     return size;
 }
 
-void replaceMinString(int** matrix, int size)
+int replaceMinString(int** matrix, int size)
 {
     int minX = 0;
     int minY = 0;
@@ -105,9 +105,10 @@ void replaceMinString(int** matrix, int size)
     {
         matrix[minX][i] = 0;
     }
+    return minX;
 }
 
-void deleteMaxColumn(int** matrix, int** newMatrix, int size)
+int deleteMaxColumn(int** matrix, int** newMatrix, int size)
 {
     int maxX = 0;
     int maxY = 0;
@@ -136,4 +137,5 @@ void deleteMaxColumn(int** matrix, int** newMatrix, int size)
             }
         }
     }
+    return maxY;
 }
