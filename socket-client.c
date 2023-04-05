@@ -14,27 +14,27 @@
 
 #define ADDRES "127.0.0.1"
 #define PORT 5005
+#define BUFFSIZE 4048
 
 void sendMatrix(int** matrix, int size, int socketFileDescriptor, struct sockaddr_in name)
 {
-    int resSend = 0;
-    resSend = sendto(socketFileDescriptor, &size, sizeof (size), 0,
-                     (struct sockaddr *) &name, sizeof (name)
-                    );
-    if (0 > resSend)
+  char buffer[BUFFSIZE];
+  sprintf(buffer, "%d ", size);
+  for(int i = 0; i < size; i++)
+  {
+    for(int j = 0; j < size; j++)
     {
-        perror("sendto");
+      sprintf(buffer, "%d ", matrix[i][j]);
     }
-    for(int i = 0; size < size; i++)
-    {
-        resSend = sendto(socketFileDescriptor, matrix[i], size * sizeof(int), 0,
-                    (struct sockaddr *) &name, sizeof (name)
-                );
-        if (0 > resSend)
-        {
-            perror("sendto");
-        }
-    }
+  }
+  printf("%s\n", buffer);
+  int resSend = 0;
+  resSend = sendto(socketFileDescriptor, &buffer, 
+    strlen(buffer), 0, (struct sockaddr *) &name, sizeof (name));
+  if (0 > resSend)
+  {
+    perror("sendto");
+  }
 }
 
 int main(int argc, const char* argv[])
@@ -63,6 +63,7 @@ int main(int argc, const char* argv[])
   /* Write the text to the socket.  */
   do
   {
+    
     int size = InputSize();
     int** matrix = (int**) malloc(size * sizeof(int*));
     for(int i = 0; i < size; i++)

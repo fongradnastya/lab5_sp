@@ -13,6 +13,7 @@
 #include"matrix.c"
 
 #define PORT 5005
+#define BUFFSIZE 4048
 
 /*! \brief Read text from socket and print it.
  *
@@ -28,46 +29,34 @@ int server(int serverSocket)
   socklen_t clientNameLength = sizeof (clientName);
   while (!0)
   {
-    /* Recieve messages from any peers */
-    int length = 0;
-
-    /* First, read the length of the text message from the socket.  If
-       read returns zero, the client closed the connection.  */
-    int recvResult = recvfrom(serverSocket, &length, sizeof (length), 0,
+    char buffer[BUFFSIZE];
+    int recvResult = recvfrom(serverSocket, &buffer, strlen(buffer), 0,
                               (struct sockaddr *) &clientName,
                               &clientNameLength
                              );
-    printf("%d\n", length);
+    printf("%s\n", buffer);
     if (recvResult == -1)
     {
       perror("recvfrom");
     }
-    if (0 >= recvResult)
+    else if (recvResult == 0)
     {
       return 0;
     }
-    /* Allocate a buffer to hold the text.  */
+    int length = 3;
     int** matrix = (int**) malloc(length * sizeof(int*));
     for(int i = 0; i < length; i++)
     {
         matrix[i] = (int*)malloc(length * sizeof(int));
     }   
-    for(int i = 0; i < length; i++)
-    {
-        printf("%d\n", i);
-        recvResult = recvfrom(serverSocket, matrix[i], length * sizeof(int), 0,
-                          (struct sockaddr *)&clientName,
-                          &clientNameLength
-                         );
-        if(recvResult < 0)
-        {
-            perror("recovfrom");
-            return 0;
-        }
-    }
+    
     printf("The matrix successfully read\n");
     PrintMatrix(matrix, length, length);
     matrixProcessing(matrix, length);
+    for(int i = 0; i < length; i++)
+    {
+      free(matrix[i]);
+    }
     free(matrix);
   }
   return 0;
