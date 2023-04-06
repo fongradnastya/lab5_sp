@@ -1,8 +1,8 @@
 /*! \file    socket-client.c
- *  \brief   Sockets demonstration.
+ *  \brief   Клиентская часть программы
  *
- *  \details Interprocess communication via UDP sockets.
- *           Write messages to the socket.
+ *  \details Создаёт сокет, считывающий пользовательский ввод 
+ * и посылающий запросы другим сокетам
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,6 +19,13 @@
 #define PORT 5005
 #define BUFFSIZE 4048
 
+/*! \brief Записывает матрицу в буффер и отправляет его на сервер
+ *
+ *  \param  matrix матрица для отправки
+ *  \param  size размер матрицы
+ *  \param  socketFileDescriptor дескриптор сокета
+ *  \param  name имя и адрес сервера
+ */
 void sendMatrix(int** matrix, int size, int socketFileDescriptor, struct sockaddr_in name)
 {
   char buffer[BUFFSIZE];
@@ -39,7 +46,10 @@ void sendMatrix(int** matrix, int size, int socketFileDescriptor, struct sockadd
   }
 }
 
-int main(int argc, const char* argv[])
+/*! \brief Запускает работу клиентского приложения
+ *  \return код завершения выполнения
+*/
+int main()
 {
   int socketFileDescriptor;
   
@@ -62,7 +72,6 @@ int main(int argc, const char* argv[])
   if (0 > socketFileDescriptor)
     perror("socket");
 
-  /* Write the text to the socket.  */
   printf("---------------------------------------\n");
   do
   {

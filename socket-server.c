@@ -1,8 +1,8 @@
 /*! \file    socket-server.c
- *  \brief   Sockets demonstration.
+ *  \brief   Серверная часть программы
  *
- *  \details Interprocess communication via internet UDP sockets.
- *           Read messages and print it out until client sent "adios amigo".
+ *  \details Создаёт сокет, принимающий запросы от других сокетов 
+ * и выводящий результат их выполнения
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,13 +17,10 @@
 #define PORT 5005
 #define BUFFSIZE 4048
 
-/*! \brief Read text from socket and print it.
+/*! \brief Считывает матрицу и производит манипуляции над ней
  *
- *  \details Read text from the socket and print it out.
- *           Continue until the socket closes.
- *  \param  serverSocket     Listening socket descriptor
- *  \return non-zero, if the client sent a "adios amigo" message,
- *          zero otherwise.
+ *  \param  serverSocket дескриптор прослушиваемого сокета
+ *  \return код завершения работы
  */
 int server(int serverSocket)
 {
@@ -50,10 +47,13 @@ int server(int serverSocket)
     }
     getMatrixFromString(buffer);
   }
-  return 0;
+  return 1;
 }
 
-int main(int argc, char* const argv[])
+/*! \brief Запускает работу сервера
+ *  \return код завершения выполнения
+*/
+int main()
 {
   int socketFileDescriptor = -1;
   
