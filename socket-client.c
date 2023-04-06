@@ -12,7 +12,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
-#include"matrix.c"
+#include"matrix.h"
+#include"input.h"
 
 #define ADDRES "127.0.0.1"
 #define PORT 5005

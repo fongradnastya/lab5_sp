@@ -12,7 +12,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
-#include"matrix.c"
+#include"matrix.h"
 
 #define PORT 5005
 #define BUFFSIZE 4048
