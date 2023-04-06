@@ -1,0 +1,124 @@
+\hypertarget{matrix_8h}{}\doxysection{matrix.\+h File Reference}
+\label{matrix_8h}\index{matrix.h@{matrix.h}}
+
+
+Функции для работы с матрицами  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{matrix_8h_a0450dbd0d80a06dc70adc2b8ae2acd37}{Print\+Matrix}} (int $\ast$$\ast$matrix, int sizeX, int sizeY)
+\begin{DoxyCompactList}\small\item\em Выводит элементв матрицы в консоль \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{matrix_8h_a43366c9f68b762889666ced20d239f98}{replace\+Min\+String}} (int $\ast$$\ast$matrix, int size)
+\begin{DoxyCompactList}\small\item\em Заменяет нулями строку с наименьшим элементом \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{matrix_8h_a60533bd4b5f648b4dbc1db4ca18834a7}{delete\+Max\+Column}} (int $\ast$$\ast$matrix, int $\ast$$\ast$new\+Matrix, int size)
+\begin{DoxyCompactList}\small\item\em Удаляет столбец с наибольшим элементом \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{matrix_8h_aaf0bbb5de6083880f1e8f64885a8103f}{matrix\+Processing}} (int $\ast$$\ast$matrix, int size)
+\begin{DoxyCompactList}\small\item\em Производит манипуляции над переданной маторицей \end{DoxyCompactList}\item 
+int $\ast$$\ast$ \mbox{\hyperlink{matrix_8h_ae2909e05f4c3cd70c345dc1914bd16d4}{get\+Matrix\+From\+String}} (char $\ast$str)
+\begin{DoxyCompactList}\small\item\em Считывает матрицу из переданной строки \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Функции для работы с матрицами 
+
+Заголовочный файл, содержащий функции для просмотра и модификации двумерных массивов 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{matrix_8h_a60533bd4b5f648b4dbc1db4ca18834a7}\label{matrix_8h_a60533bd4b5f648b4dbc1db4ca18834a7}} 
+\index{matrix.h@{matrix.h}!deleteMaxColumn@{deleteMaxColumn}}
+\index{deleteMaxColumn@{deleteMaxColumn}!matrix.h@{matrix.h}}
+\doxysubsubsection{\texorpdfstring{deleteMaxColumn()}{deleteMaxColumn()}}
+{\footnotesize\ttfamily int delete\+Max\+Column (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{matrix,  }\item[{int $\ast$$\ast$}]{new\+Matrix,  }\item[{int}]{size }\end{DoxyParamCaption})}
+
+
+
+Удаляет столбец с наибольшим элементом 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em matrix} & исходная матрица \\
+\hline
+\mbox{\texttt{ out}}  & {\em new\+Matrix} & матрица без одного из столбцов \\
+\hline
+\mbox{\texttt{ in}}  & {\em size} & размер исходной матрицы \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+номер удалённого столбца 
+\end{DoxyReturn}
+\mbox{\Hypertarget{matrix_8h_ae2909e05f4c3cd70c345dc1914bd16d4}\label{matrix_8h_ae2909e05f4c3cd70c345dc1914bd16d4}} 
+\index{matrix.h@{matrix.h}!getMatrixFromString@{getMatrixFromString}}
+\index{getMatrixFromString@{getMatrixFromString}!matrix.h@{matrix.h}}
+\doxysubsubsection{\texorpdfstring{getMatrixFromString()}{getMatrixFromString()}}
+{\footnotesize\ttfamily int $\ast$$\ast$ get\+Matrix\+From\+String (\begin{DoxyParamCaption}\item[{char $\ast$}]{str }\end{DoxyParamCaption})}
+
+
+
+Считывает матрицу из переданной строки 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em str} & строка из разделённых пробелом элементов \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+квадратная матрица из элементов строки 
+\end{DoxyReturn}
+\mbox{\Hypertarget{matrix_8h_aaf0bbb5de6083880f1e8f64885a8103f}\label{matrix_8h_aaf0bbb5de6083880f1e8f64885a8103f}} 
+\index{matrix.h@{matrix.h}!matrixProcessing@{matrixProcessing}}
+\index{matrixProcessing@{matrixProcessing}!matrix.h@{matrix.h}}
+\doxysubsubsection{\texorpdfstring{matrixProcessing()}{matrixProcessing()}}
+{\footnotesize\ttfamily void matrix\+Processing (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{matrix,  }\item[{int}]{size }\end{DoxyParamCaption})}
+
+
+
+Производит манипуляции над переданной маторицей 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em matrix} & исходная матрица \\
+\hline
+\mbox{\texttt{ in}}  & {\em size} & размер исходной матрицы \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{matrix_8h_a0450dbd0d80a06dc70adc2b8ae2acd37}\label{matrix_8h_a0450dbd0d80a06dc70adc2b8ae2acd37}} 
+\index{matrix.h@{matrix.h}!PrintMatrix@{PrintMatrix}}
+\index{PrintMatrix@{PrintMatrix}!matrix.h@{matrix.h}}
+\doxysubsubsection{\texorpdfstring{PrintMatrix()}{PrintMatrix()}}
+{\footnotesize\ttfamily void Print\+Matrix (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{matrix,  }\item[{int}]{sizeX,  }\item[{int}]{sizeY }\end{DoxyParamCaption})}
+
+
+
+Выводит элементв матрицы в консоль 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em matrix} & матрица для вывода \\
+\hline
+\mbox{\texttt{ in}}  & {\em sizeX} & число столбцов в матрице \\
+\hline
+\mbox{\texttt{ in}}  & {\em sizeY} & число строк в матрице \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{matrix_8h_a43366c9f68b762889666ced20d239f98}\label{matrix_8h_a43366c9f68b762889666ced20d239f98}} 
+\index{matrix.h@{matrix.h}!replaceMinString@{replaceMinString}}
+\index{replaceMinString@{replaceMinString}!matrix.h@{matrix.h}}
+\doxysubsubsection{\texorpdfstring{replaceMinString()}{replaceMinString()}}
+{\footnotesize\ttfamily int replace\+Min\+String (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{matrix,  }\item[{int}]{size }\end{DoxyParamCaption})}
+
+
+
+Заменяет нулями строку с наименьшим элементом 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em matrix} & исходная матрица \\
+\hline
+\mbox{\texttt{ in}}  & {\em size} & размер матрицы \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+номер изменённой строки 
+\end{DoxyReturn}

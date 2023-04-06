@@ -1,0 +1,90 @@
+\hypertarget{input_8h}{}\doxysection{input.\+h File Reference}
+\label{input_8h}\index{input.h@{input.h}}
+
+
+Функции для считывания данных из консоли  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \mbox{\hyperlink{input_8h_a219d32a4be10cb369c62d11fa7eeb48e}{Get\+String}} ()
+\begin{DoxyCompactList}\small\item\em Считывает строку из консоли \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{input_8h_a4331f0600f0a440f6862a3f3b0906055}{Input\+Int}} (int $\ast$val)
+\begin{DoxyCompactList}\small\item\em Считывает целое число из консоли \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{input_8h_a9fb4ca296e3d6d37321b70cf1ed03af9}{Input\+Matrix}} (int $\ast$$\ast$matrix, int size)
+\begin{DoxyCompactList}\small\item\em Считывает матрицу из консоли \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{input_8h_ad665a654c1faf2c4719aaa32093ba469}{Input\+Size}} ()
+\begin{DoxyCompactList}\small\item\em Считывает размер создаваемой матрицы \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Функции для считывания данных из консоли 
+
+Заголовочный файл, содержащий объявления функций для обраотки пользовательского ввода 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{input_8h_a219d32a4be10cb369c62d11fa7eeb48e}\label{input_8h_a219d32a4be10cb369c62d11fa7eeb48e}} 
+\index{input.h@{input.h}!GetString@{GetString}}
+\index{GetString@{GetString}!input.h@{input.h}}
+\doxysubsubsection{\texorpdfstring{GetString()}{GetString()}}
+{\footnotesize\ttfamily char $\ast$ Get\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Считывает строку из консоли 
+
+\begin{DoxyReturn}{Returns}
+полученная строка 
+\end{DoxyReturn}
+\mbox{\Hypertarget{input_8h_a4331f0600f0a440f6862a3f3b0906055}\label{input_8h_a4331f0600f0a440f6862a3f3b0906055}} 
+\index{input.h@{input.h}!InputInt@{InputInt}}
+\index{InputInt@{InputInt}!input.h@{input.h}}
+\doxysubsubsection{\texorpdfstring{InputInt()}{InputInt()}}
+{\footnotesize\ttfamily int Input\+Int (\begin{DoxyParamCaption}\item[{int $\ast$}]{val }\end{DoxyParamCaption})}
+
+
+
+Считывает целое число из консоли 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em val} & считанное значение \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+код выполнения операции 
+\end{DoxyReturn}
+\mbox{\Hypertarget{input_8h_a9fb4ca296e3d6d37321b70cf1ed03af9}\label{input_8h_a9fb4ca296e3d6d37321b70cf1ed03af9}} 
+\index{input.h@{input.h}!InputMatrix@{InputMatrix}}
+\index{InputMatrix@{InputMatrix}!input.h@{input.h}}
+\doxysubsubsection{\texorpdfstring{InputMatrix()}{InputMatrix()}}
+{\footnotesize\ttfamily int Input\+Matrix (\begin{DoxyParamCaption}\item[{int $\ast$$\ast$}]{matrix,  }\item[{int}]{size }\end{DoxyParamCaption})}
+
+
+
+Считывает матрицу из консоли 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em matrix} & матрица для считывания \\
+\hline
+\mbox{\texttt{ in}}  & {\em size} & размер матрицы для ввода \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{input_8h_ad665a654c1faf2c4719aaa32093ba469}\label{input_8h_ad665a654c1faf2c4719aaa32093ba469}} 
+\index{input.h@{input.h}!InputSize@{InputSize}}
+\index{InputSize@{InputSize}!input.h@{input.h}}
+\doxysubsubsection{\texorpdfstring{InputSize()}{InputSize()}}
+{\footnotesize\ttfamily int Input\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Считывает размер создаваемой матрицы 
+
+\begin{DoxyReturn}{Returns}
+значение размера 
+\end{DoxyReturn}

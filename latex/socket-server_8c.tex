@@ -1,0 +1,70 @@
+\hypertarget{socket-server_8c}{}\doxysection{socket-\/server.c File Reference}
+\label{socket-server_8c}\index{socket-\/server.c@{socket-\/server.c}}
+
+
+Серверная часть программы  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$netinet/in.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}matrix.\+h\char`\"{}}\newline
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{socket-server_8c_a614217d263be1fb1a5f76e2ff7be19a2}\label{socket-server_8c_a614217d263be1fb1a5f76e2ff7be19a2}} 
+\#define {\bfseries PORT}~5005
+\item 
+\mbox{\Hypertarget{socket-server_8c_a39912bfe2a55f30e269196f9141d845d}\label{socket-server_8c_a39912bfe2a55f30e269196f9141d845d}} 
+\#define {\bfseries BUFFSIZE}~4048
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{socket-server_8c_a0586f6b4e955ffb9c9c800dca0cb6a2e}{server}} (int server\+Socket)
+\begin{DoxyCompactList}\small\item\em Считывает матрицу и производит манипуляции над ней \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{socket-server_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Запускает работу сервера \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Серверная часть программы 
+
+Создаёт сокет, принимающий запросы от других сокетов и выводящий результат их выполнения 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{socket-server_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{socket-server_8c_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{socket-\/server.c@{socket-\/server.c}!main@{main}}
+\index{main@{main}!socket-\/server.c@{socket-\/server.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Запускает работу сервера 
+
+\begin{DoxyReturn}{Returns}
+код завершения выполнения 
+\end{DoxyReturn}
+\mbox{\Hypertarget{socket-server_8c_a0586f6b4e955ffb9c9c800dca0cb6a2e}\label{socket-server_8c_a0586f6b4e955ffb9c9c800dca0cb6a2e}} 
+\index{socket-\/server.c@{socket-\/server.c}!server@{server}}
+\index{server@{server}!socket-\/server.c@{socket-\/server.c}}
+\doxysubsubsection{\texorpdfstring{server()}{server()}}
+{\footnotesize\ttfamily int server (\begin{DoxyParamCaption}\item[{int}]{server\+Socket }\end{DoxyParamCaption})}
+
+
+
+Считывает матрицу и производит манипуляции над ней 
+
+
+\begin{DoxyParams}{Parameters}
+{\em server\+Socket} & дескриптор прослушиваемого сокета \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+код завершения работы 
+\end{DoxyReturn}
